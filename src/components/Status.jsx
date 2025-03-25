@@ -1,10 +1,14 @@
-import TaskBox from "./TaskName";
+import TaskBox from "./TaskItem";
 import React from "react";
-function Status({ heading, tasks, setTasks }) {
+import "../styles/tasks.css";
+function Status({ heading, tasks, setTasks, icon = <></> }) {
   return (
     <div className="task-container">
-      <h2>{heading}</h2>
-      <div>
+      <div className="task-heading">
+        {icon}
+        <h2>{heading}</h2>
+      </div>
+      <div className="tasks">
         {tasks.map((task, index) => (
           <TaskBox task={task} setTasks={setTasks} key={index} />
         ))}

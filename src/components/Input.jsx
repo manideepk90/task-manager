@@ -5,6 +5,7 @@ function Input({ tasks, setTasks }) {
   const [error, setError] = useState("");
   const handlePress = () => {
     if (value.trim() === "") {
+      setError("Data cannot be empty")
       return;
     }
     let isExists = tasks.some((element) => element.value === value);
@@ -12,18 +13,9 @@ function Input({ tasks, setTasks }) {
       value: value.trim(),
       isCompleted: false,
     };
-    // method 1
-    // let newTasks = [...tasks, payload];
-    // setTasks(newTasks);
 
-    // method 2
-    // setTasks([...tasks, payload])
-
-    // method 3
     if (!isExists) {
       setTasks((prev) => {
-        // prev.push(payload) // wrong
-        // return prev // wrong
         return [...prev, payload];
       });
       setValue("");
@@ -42,12 +34,18 @@ function Input({ tasks, setTasks }) {
             setValue(e.target.value);
             setError("");
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handlePress()
+            }
+          }}
         />
         <button onClick={handlePress}>Add Task</button>
       </div>
       <p
         style={{
           fontSize: "20px",
+          textAlign: "center",
           color: "red",
         }}
       >

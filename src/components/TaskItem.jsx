@@ -1,11 +1,14 @@
+import { useState } from "react";
+import "../styles/tasks.css";
 function TaskBox({ task, setTasks }) {
+  const [isShow, setIsShow] = useState(false);
   const handleChecked = (e) => {
     setTasks((prev) => {
       return prev.map((element) => {
         if (element.value === task.value) {
           return {
             ...element,
-            isCompleted: e.target.checked,
+            isCompleted: !element.isCompleted,
           };
         } else {
           return element;
@@ -23,30 +26,56 @@ function TaskBox({ task, setTasks }) {
 
   return (
     <div className="task-item">
-      <p>{task.value}</p>
+      <p
+        style={{
+          wordBreak: "break-word",
+        }}
+      >
+        {isShow ? task.value : task.value.slice(0, 20)}
+        <span
+          style={{
+            color: "#3680ef",
+            cursor: "pointer",
+            userSelect: "none",
+          }}
+          onClick={() => {
+            setIsShow((prev) => !prev);
+          }}
+        >
+          {task.value?.length > 20 ? isShow ? " hide" : " show" : <></>}
+        </span>
+      </p>
       <div
         style={{
           display: "flex",
-          gap: "10px",
+          gap: "15px",
+          alignSelf: "end",
+          justifyContent: "center",
         }}
       >
+        {/* {task.isCompleted ? (
+          <img src="logo.svg" onClick={handleChecked} />
+        ) : ( */}
         <input
-          style={{
-            scale: 1.6,
-          }}
+          className="task-checkbox"
           type="checkbox"
           checked={task.isCompleted || false}
           onChange={handleChecked}
         ></input>
+        {/* )} */}
+
         <div
           style={{
-            borderRadius: "8px",
-            border: "1px solid red",
+            borderRadius: "6px",
+            border: "2px solid red",
             display: "flex",
             width: "25px",
             height: "25px",
             justifyContent: "center",
             alignItems: "center",
+            cursor: "pointer",
+            userSelect: "none",
+            fontWeight: "bold",
           }}
           onClick={handledelete}
         >

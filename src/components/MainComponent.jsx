@@ -24,19 +24,24 @@ export default function MainComponent() {
             style={{
               fontSize: "24px",
               fontWeight: "500",
+              color: "green",
             }}
           >
-            No tasks are there
+            😁 No tasks
           </p>
         ) : (
           <>
             <Status
               heading={"Pending"}
-              tasks={tasks.filter((ele) => ele.isCompleted === false)}
+              icon={<img src="pending.svg" alt="icon.svg" />}
+              tasks={tasks.filter(
+                (ele) => (ele.isCompleted || false) === false
+              )}
               setTasks={setTasks}
             />
             <Status
               heading={"completed"}
+              icon={<img src="logo.svg" alt="icon.svg" />}
               tasks={tasks.filter((ele) => ele.isCompleted === true)}
               setTasks={setTasks}
             />
